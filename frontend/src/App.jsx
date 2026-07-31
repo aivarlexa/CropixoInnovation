@@ -107,7 +107,7 @@ function App() {
         </div>
         <div>
           <p className={bodyClass}>
-            Cropixo Nutrition develops high-grade fertilizers for progressive farms,
+            Cropixo Nutrition develops high-grade fertilizers for progressive farms
             protected cultivation, and distributors serving quality-focused growers.
             Our work combines agronomy, formulation science, and efficient production
             to support healthier plants with fewer wasted inputs.
