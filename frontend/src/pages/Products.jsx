@@ -1,7 +1,7 @@
 import React from "react";
 import "./Products.css";
 
-import product1 from "../assets/products/product.png";
+import product1 from "../assets/products/1.jpeg";
 
 const product = {
   id: 1,

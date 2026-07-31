@@ -1,3 +1,4 @@
+import { Routes, Route, Link } from 'react-router-dom'
 import {
   ArrowRight,
   Award,
@@ -16,10 +17,14 @@ import {
   SunMedium,
   Tractor,
   Waves,
+  Package,
+  BookOpen,
+  Sparkles,
 } from 'lucide-react'
 import greenhouseHero from './assets/Green2.png'
 import greenhouseDetail from './assets/Green1.jpg'
 import cropHouse from './assets/Green3.jpeg'
+import Products from './pages/Products'
 
 const products = [
   ['Organic', 'Carbon-rich soil builders for living soils and long-term fertility.', Leaf],
@@ -51,27 +56,9 @@ const bodyClass = 'text-base leading-8 text-[#65736b] md:text-lg'
 const cardClass = 'rounded-3xl border border-[#1f6f4324] bg-white/80 shadow-[0_24px_70px_rgba(22,48,35,0.12)]'
 const buttonClass = 'inline-flex items-center justify-center gap-2 rounded-full bg-[#123f2a] px-6 py-4 font-bold text-white shadow-[0_12px_28px_rgba(18,63,42,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0b3320] hover:shadow-[0_18px_36px_rgba(18,63,42,0.28)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#1f6f4359]'
 
-function App() {
+function Home() {
   return (
-    <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
-      <nav className="fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-4 rounded-[28px] border border-white/60 bg-white/80 px-2.5 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-3 md:py-2.5 md:pl-5">
-        <a className="flex items-center gap-2.5 font-bold tracking-normal" href="#top" aria-label="Cropixo home">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1f6f43] to-[#67a36e] text-white md:h-10 md:w-10">
-            <Leaf size={20} aria-hidden="true" />
-          </span>
-          <span className="max-w-28 leading-tight md:max-w-none">Cropixo Nutrition</span>
-        </a>
-        <div className="hidden items-center gap-6 text-sm text-[#40524a] lg:flex">
-          <a className="transition hover:text-[#1f6f43]" href="#products">Products</a>
-          <a className="transition hover:text-[#1f6f43]" href="#sustainability">Sustainability</a>
-          <a className="transition hover:text-[#1f6f43]" href="#research">Research</a>
-          <a className="transition hover:text-[#1f6f43]" href="#contact">Contact</a>
-        </div>
-        <a className="rounded-full bg-[#123f2a] px-4 py-3 text-sm font-bold text-white shadow-[0_12px_28px_rgba(18,63,42,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0b3320] md:px-5" href="#contact">
-          Dealer Inquiry
-        </a>
-      </nav>
-
+    <>
       <section className="relative grid min-h-[100svh] items-end px-5 pb-9 pt-28 text-white md:px-[clamp(20px,5vw,80px)] md:pb-14 md:pt-36" id="top" aria-labelledby="hero-title">
         <img className="absolute inset-0 h-full w-full object-cover" src={greenhouseHero} alt="Sunlit modern greenhouse with healthy crops in the Netherlands" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,30,20,0.78),rgba(9,30,20,0.34)_52%,rgba(9,30,20,0.08)),linear-gradient(0deg,rgba(9,30,20,0.5),transparent_50%)]" />
@@ -85,11 +72,11 @@ function App() {
             sustainability, and consistent field performance from soil to export.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3.5">
-            <a className={buttonClass} href="#products">
+            <Link className={buttonClass} to="/products">
               Explore products <ArrowRight size={18} aria-hidden="true" />
-            </a>
+            </Link>
             <a className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/50 bg-white/15 px-5 text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25" href="#research">
-           ``   View research
+              View research
             </a>
           </div>
         </div>
@@ -137,9 +124,9 @@ function App() {
               <Icon className="text-[#1f6f43]" size={26} aria-hidden="true" />
               <h3 className="my-4 text-xl font-bold text-[#15251c]">{title}</h3>
               <p className="leading-7 text-[#65736b]">{text}</p>
-              <a className="mt-3 inline-flex items-center gap-1.5 font-bold text-[#123f2a] transition hover:text-[#1f6f43]" href="#contact" aria-label={`Ask about ${title}`}>
-                Request formulation <ChevronRight size={16} aria-hidden="true" />
-              </a>
+              <Link className="mt-3 inline-flex items-center gap-1.5 font-bold text-[#123f2a] transition hover:text-[#1f6f43]" to="/products" aria-label={`Ask about ${title}`}>
+                View detail <ChevronRight size={16} aria-hidden="true" />
+              </Link>
             </article>
           ))}
         </div>
@@ -279,6 +266,66 @@ function App() {
           <button className={buttonClass} type="submit">Send inquiry <ArrowRight size={18} aria-hidden="true" /></button>
         </form>
       </section>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
+      {/* Persistent Navigation Bar */}
+      <nav className="fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-3 rounded-[28px] border border-white/60 bg-white/80 px-3 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-4 md:py-2.5">
+        
+        {/* Brand Logo / Home Link */}
+        <Link className="group flex items-center gap-2.5 font-bold tracking-normal transition hover:opacity-90" to="/" aria-label="Cropixo home">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1f6f43] to-[#67a36e] text-white shadow-sm transition group-hover:scale-105 md:h-10 md:w-10">
+            <Leaf size={20} aria-hidden="true" />
+          </span>
+          <span className="max-w-28 text-base font-extrabold text-[#123f2a] leading-tight md:max-w-none">Cropixo Nutrition</span>
+        </Link>
+
+        {/* Navigation Items */}
+        <div className="hidden items-center gap-2 text-sm text-[#40524a] lg:flex">
+          {/* Products Link -> Navigates to /products page */}
+          <Link className="flex items-center gap-1.5 rounded-full bg-[#1f6f4310] px-3.5 py-1.5 font-medium text-[#1f6f43] transition hover:bg-[#1f6f4320] hover:text-[#123f2a]" to="/products">
+            <Package size={15} />
+            <span>Products</span>
+          </Link>
+
+          {/* Sustainability Link */}
+          <a className="flex items-center gap-1.5 rounded-full border border-[#2e8b5733] bg-[#f0fbf4] px-3.5 py-1.5 font-medium text-[#2e8b57] transition hover:bg-[#2e8b57] hover:text-white" href="/#sustainability">
+            <Sparkles size={15} />
+            <span>Sustainability</span>
+            <span className="rounded-md bg-[#2e8b5722] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">Eco</span>
+          </a>
+
+          {/* Research Link */}
+          <a className="flex items-center gap-1.5 rounded-2xl bg-amber-50 px-3.5 py-1.5 font-medium text-amber-800 transition hover:bg-amber-100 hover:text-amber-900" href="/#research">
+            <BookOpen size={15} />
+            <span>Research</span>
+          </a>
+
+          {/* Contact Link */}
+          <a className="flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 font-semibold text-[#15251c] transition hover:bg-emerald-800 hover:text-white" href="/#contact">
+            <Mail size={15} />
+            <span>Contact</span>
+          </a>
+        </div>
+
+        {/* CTA Button */}
+        <a className="flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-[#123f2a] to-[#1f6f43] px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:scale-105 hover:shadow-lg md:px-5 md:text-sm" href="/#contact">
+          <span>Dealer Inquiry</span>
+          <ArrowRight size={15} />
+        </a>
+      </nav>
+
+      {/* Page Routing */}
+      <div className="pt-16 md:pt-20">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+        </Routes>
+      </div>
     </main>
   )
 }
