@@ -115,7 +115,7 @@ function App() {
           <div className="mt-8 grid gap-3.5 sm:grid-cols-3">
             {['24 crop protocols', '18 export markets', '0.3% batch variance'].map((metric) => {
               const [value, ...label] = metric.split(' ')
-              return (
+              return ( 
                 <span className="min-h-24 rounded-2xl border border-[#1f6f4324] bg-white p-4 text-[#65736b]" key={metric}>
                   <strong className="block text-3xl text-[#123f2a]">{value}</strong>
                   {label.join(' ')}
