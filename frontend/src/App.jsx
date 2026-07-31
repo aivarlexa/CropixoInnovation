@@ -89,7 +89,7 @@ function App() {
               Explore products <ArrowRight size={18} aria-hidden="true" />
             </a>
             <a className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/50 bg-white/15 px-5 text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25" href="#research">
-              View research
+           ``   View research
             </a>
           </div>
         </div>
@@ -97,7 +97,7 @@ function App() {
           <span className="text-xs uppercase text-white/75">nutrient efficiency</span>
           <strong className="my-2 block text-7xl leading-none">31%</strong>
           <p className="m-0 leading-6 text-white/80">average program improvement across monitored greenhouse trials</p>
-        </div>
+        </div> 
       </section>
 
       <section className={`${sectionClass} grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20`} id="about">
