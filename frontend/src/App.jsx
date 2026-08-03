@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -272,10 +273,39 @@ function Home() {
 }
 
 function App() {
- return (
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      // Keep navbar visible when near the top of the page (e.g. within 50px)
+      if (currentScrollY <= 50) {
+        setIsVisible(true)
+      } 
+      // Hide on scroll down, show on scroll up
+      else if (currentScrollY > lastScrollY) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
+  return (
     <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
       {/* Persistent Navigation Bar */}
-      <nav className="fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-3 rounded-[28px] border border-white/60 bg-white/80 px-3 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-4 md:py-2.5">
+      <nav 
+        className={`fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-3 rounded-[28px] border border-white/60 bg-white/80 px-3 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl transition-all duration-300 md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-4 md:py-2.5 ${
+          isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'
+        }`}
+      >
         
         {/* Brand Logo / Home Link */}
         <Link className="group flex items-center transition hover:opacity-90" to="/" aria-label="Cropixo home">
