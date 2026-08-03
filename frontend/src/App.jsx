@@ -24,6 +24,7 @@ import {
 import greenhouseHero from './assets/Green2.png'
 import greenhouseDetail from './assets/Green1.jpg'
 import cropHouse from './assets/Green3.jpeg'
+import log from './assets/products/CropixoInnovationlogo.jpeg'
 import Products from './pages/Products'
 
 const products = [
@@ -271,17 +272,18 @@ function Home() {
 }
 
 function App() {
-  return (
+ return (
     <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
       {/* Persistent Navigation Bar */}
       <nav className="fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-3 rounded-[28px] border border-white/60 bg-white/80 px-3 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-4 md:py-2.5">
         
         {/* Brand Logo / Home Link */}
-        <Link className="group flex items-center gap-2.5 font-bold tracking-normal transition hover:opacity-90" to="/" aria-label="Cropixo home">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#1f6f43] to-[#67a36e] text-white shadow-sm transition group-hover:scale-105 md:h-10 md:w-10">
-            <Leaf size={20} aria-hidden="true" />
-          </span>
-          <span className="max-w-28 text-base font-extrabold text-[#123f2a] leading-tight md:max-w-none">Cropixo Nutrition</span>
+        <Link className="group flex items-center transition hover:opacity-90" to="/" aria-label="Cropixo home">
+          <img 
+            src={log} 
+            alt="Cropixo Innovation Logo" 
+            className="h-9 w-auto object-contain md:h-10 transition group-hover:scale-105"
+          />
         </Link>
 
         {/* Navigation Items */}
