@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes,NavLink } from 'react-router-dom'
 import {
   ArrowRight,
   BadgeCheck,
@@ -22,6 +22,7 @@ import logo from './assets/CropixoInnovation.png'
 import { products } from './data/products.js'
 import ProductsPage from './pages/productsPage.jsx'
 import ProductDetailPage from './pages/productDetailPage.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 
 const sectionClass = 'mx-auto w-[min(1180px,calc(100%-40px))] py-20'
 const eyebrowClass = 'mb-3 text-xs font-extrabold uppercase tracking-[0.13em] text-[#1f6f43]'
@@ -88,9 +89,9 @@ function SiteFooter() {
         </div>
         <div>
           <div className="grid gap-2 text-white/75">
-            <Link to="/products">Products</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <NavLink to="/products">Products</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
           </div>
         </div>
         <div>
@@ -284,6 +285,7 @@ function App() {
 
   return (
     <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
+        <ScrollToTop />
       <Navigation isVisible={isVisible} />
       <Routes>
         <Route path="/" element={<><Home /><ResearchStrip /><SiteFooter /></>} />
