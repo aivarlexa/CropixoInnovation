@@ -18,7 +18,7 @@ import {
 import greenhouseHero from './assets/Green2.png'
 import greenhouseDetail from './assets/Green1.jpg'
 import cropHouse from './assets/Green3.jpeg'
-import log from './assets/products/CropixoInnovationlogo.jpeg'
+import logo from './assets/CropixoInnovation.png'
 import { products } from './data/products.js'
 import ProductsPage from './pages/productsPage.jsx'
 import ProductDetailPage from './pages/productDetailPage.jsx'
@@ -39,9 +39,9 @@ function Navigation({ isVisible }) {
       {/* Brand Logo / Home Link */}
       <Link className="group flex items-center transition hover:opacity-90" to="/" aria-label="Cropixo home">
         <img 
-          src={log} 
+          src={logo} 
           alt="Cropixo Innovation Logo" 
-          className="h-9 w-auto object-contain md:h-10 transition group-hover:scale-105"
+          className="h-9 w-auto object-contain scale-300 origin-left transition duration-300 "
         />
       </Link>
 
