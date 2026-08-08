@@ -117,6 +117,31 @@ function SiteFooter() {
 }
 
 function Home() {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  // This routes the submission to your Web3Forms account (ifsamarthhatte@gmail.com)
+  formData.append("access_key", "db45bc64-ded6-4c38-b722-9765c497d342");
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert("Inquiry sent successfully!");
+      e.target.reset();
+    } else {
+      alert("Error sending inquiry: " + data.message);
+    }
+  } catch (error) {
+    alert("Something went wrong. Please check your network and try again.");
+  }
+};
+
   return (
     <>
       <section className="relative grid min-h-[92svh] items-end px-5 pb-10 pt-28 text-white md:px-[clamp(20px,5vw,80px)] md:pb-14 md:pt-36">
@@ -161,7 +186,7 @@ function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
 
 function AboutPage() {
