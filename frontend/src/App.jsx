@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link, Route, Routes,NavLink } from 'react-router-dom'
+import { Link, Route, Routes, NavLink } from 'react-router-dom'
 import {
   ArrowRight,
   BadgeCheck,
-  BookOpen,
   FlaskConical,
   Globe2,
   Leaf,
@@ -37,7 +36,6 @@ function Navigation({ isVisible }) {
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'
       }`}
     >
-      {/* Brand Logo / Home Link */}
       <Link className="group flex items-center transition hover:opacity-90" to="/" aria-label="Cropixo home">
         <img 
           src={logo} 
@@ -46,7 +44,6 @@ function Navigation({ isVisible }) {
         />
       </Link>
 
-      {/* Navigation Items */}
       <div className="hidden items-center gap-2 text-sm font-semibold text-[#40524a] lg:flex">
         <Link className="flex items-center gap-1.5 rounded-full px-3.5 py-2 transition hover:bg-[#1f6f4315] hover:text-[#123f2a]" to="/products">
           <Package size={15} />
@@ -162,7 +159,7 @@ function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
 
 function AboutPage() {
@@ -214,6 +211,30 @@ function AboutPage() {
 }
 
 function ContactPage() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    formData.append("access_key", "db45bc64-ded6-4c38-b722-9765c497d342");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("Inquiry sent successfully!");
+        e.target.reset();
+      } else {
+        alert("Error sending inquiry: " + data.message);
+      }
+    } catch (error) {
+      alert("Something went wrong. Please check your network and try again.");
+    }
+  };
+
   return (
     <section className={`${sectionClass} grid items-stretch gap-10 pt-32 lg:grid-cols-[0.9fr_1.1fr]`}>
       <div className="rounded-[32px] bg-[#123f2a] p-[clamp(28px,5vw,56px)] text-white">
@@ -224,18 +245,27 @@ function ContactPage() {
         <p className="flex items-center gap-2.5 text-white/80"><Phone size={18} /> +91 90112 00034</p>
         <p className="flex items-center gap-2.5 text-white/80"><Globe2 size={18} /> cropixo.example</p>
       </div>
-      <form className="grid gap-4 rounded-3xl border border-[#1f6f4324] bg-white/80 p-[clamp(24px,4vw,42px)] shadow-[0_24px_70px_rgba(22,48,35,0.12)]" aria-label="Inquiry form">
-        <label className="grid gap-2 font-bold text-[#123f2a]">Name<input className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" type="text" required /></label>
-        <label className="grid gap-2 font-bold text-[#123f2a]">Email<input className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" type="email" required /></label>
+      <form onSubmit={handleSubmit} className="grid gap-4 rounded-3xl border border-[#1f6f4324] bg-white/80 p-[clamp(24px,4vw,42px)] shadow-[0_24px_70px_rgba(22,48,35,0.12)]" aria-label="Inquiry form">
+        <label className="grid gap-2 font-bold text-[#123f2a]">
+          Name
+          <input className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" type="text" name="name" required />
+        </label>
+        <label className="grid gap-2 font-bold text-[#123f2a]">
+          Email
+          <input className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" type="email" name="email" required />
+        </label>
         <label className="grid gap-2 font-bold text-[#123f2a]">
           Interest
-          <select className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" defaultValue="product">
+          <select className="rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" name="interest" defaultValue="product">
             <option value="product">Product inquiry</option>
             <option value="dealer">Dealer partnership</option>
             <option value="research">Research collaboration</option>
           </select>
         </label>
-        <label className="grid gap-2 font-bold text-[#123f2a]">Message<textarea className="resize-y rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" rows="5" /></label>
+        <label className="grid gap-2 font-bold text-[#123f2a]">
+          Message
+          <textarea className="resize-y rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5" name="message" rows="5" required />
+        </label>
         <button className={buttonClass} type="submit">Send inquiry <ArrowRight size={18} /></button>
       </form>
     </section>
@@ -285,7 +315,7 @@ function App() {
 
   return (
     <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
-        <ScrollToTop />
+      <ScrollToTop />
       <Navigation isVisible={isVisible} />
       <Routes>
         <Route path="/" element={<><Home /><ResearchStrip /><SiteFooter /></>} />
