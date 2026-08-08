@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import React from 'react';
 import {
   ArrowRight,
   Award,
@@ -59,6 +60,31 @@ const cardClass = 'rounded-3xl border border-[#1f6f4324] bg-white/80 shadow-[0_2
 const buttonClass = 'inline-flex items-center justify-center gap-2 rounded-full bg-[#123f2a] px-6 py-4 font-bold text-white shadow-[0_12px_28px_rgba(18,63,42,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0b3320] hover:shadow-[0_18px_36px_rgba(18,63,42,0.28)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[#1f6f4359]'
 
 function Home() {
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  // This routes the submission to your Web3Forms account (ifsamarthhatte@gmail.com)
+  formData.append("access_key", "db45bc64-ded6-4c38-b722-9765c497d342");
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert("Inquiry sent successfully!");
+      e.target.reset();
+    } else {
+      alert("Error sending inquiry: " + data.message);
+    }
+  } catch (error) {
+    alert("Something went wrong. Please check your network and try again.");
+  }
+};
+
   return (
     <>
       <section className="relative grid min-h-[100svh] items-end px-5 pb-9 pt-28 text-white md:px-[clamp(20px,5vw,80px)] md:pb-14 md:pt-36" id="top" aria-labelledby="hero-title">
@@ -210,11 +236,11 @@ function Home() {
       <section className="mx-auto grid w-[min(1180px,calc(100%-40px))] gap-4.5 pb-20 pt-10 md:grid-cols-2 md:pb-26">
         <div className={`${cardClass} p-[clamp(28px,4vw,46px)]`}>
           <p className="text-2xl leading-snug text-[#15251c] md:text-3xl">“Cropixo helped us stabilize greenhouse yield while reducing nutrient waste. The program feels precise, premium, and practical.”</p>
-          <span className="font-bold text-[#8a6948]">Marijn de Vries, Greenhouse Grower</span>
+          <span className="mt-4 block font-bold text-[#8a6948]">Marijn de Vries, Greenhouse Grower</span>
         </div>
         <div className={`${cardClass} p-[clamp(28px,4vw,46px)]`}>
           <p className="text-2xl leading-snug text-[#15251c] md:text-3xl">“Our distributors value the clean packaging, technical sheets, and consistent batch quality. It is a brand farmers trust quickly.”</p>
-          <span className="font-bold text-[#8a6948]">Anika Rao, Regional Distributor</span>
+          <span className="mt-4 block font-bold text-[#8a6948]">Anika Rao, Regional Distributor</span>
         </div>
       </section>
 
@@ -249,9 +275,11 @@ function Home() {
         <div className="rounded-[32px] bg-[#123f2a] p-[clamp(28px,5vw,56px)] text-white">
           <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.13em] text-white">Contact</p>
           <h2 className="mb-5 text-4xl font-bold leading-none tracking-normal text-white md:text-6xl">Start a crop nutrition inquiry.</h2>
-          <p className="flex items-center gap-2.5 text-white/80"><MapPin size={18} aria-hidden="true" /> Innovation hub: Westland, Netherlands</p>
-          <p className="flex items-center gap-2.5 text-white/80"><Mail size={18} aria-hidden="true" /> hello@cropixo.example</p>
-          <p className="flex items-center gap-2.5 text-white/80"><Phone size={18} aria-hidden="true" /> +31 70 000 0000</p>
+          <div className="flex flex-col gap-3">
+            <p className="flex items-center gap-2.5 text-white/80"><MapPin size={18} aria-hidden="true" /> Innovation hub: Westland, Netherlands</p>
+            <p className="flex items-center gap-2.5 text-white/80"><Mail size={18} aria-hidden="true" /> hello@cropixo.example</p>
+            <p className="flex items-center gap-2.5 text-white/80"><Phone size={18} aria-hidden="true" /> +31 70 000 0000</p>
+          </div>
           <div className="my-7 flex items-center gap-2.5" aria-label="Social links">
             <a className="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-white/20" href="https://www.linkedin.com" aria-label="LinkedIn"><Globe2 size={20} /></a>
             <a className="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-white/20" href="mailto:hello@cropixo.example" aria-label="Email"><Mail size={20} /></a>
@@ -260,7 +288,12 @@ function Home() {
             Westland Agri-Tech Corridor
           </div>
         </div>
-        <form className={`${cardClass} grid gap-4 p-[clamp(24px,4vw,42px)]`} aria-label="Inquiry form">
+
+        <form 
+          onSubmit={handleSubmit} 
+          className={`${cardClass} grid gap-4 p-[clamp(24px,4vw,42px)]`} 
+          aria-label="Inquiry form"
+        >
           <label className="grid gap-2 font-bold text-[#123f2a]">Name<input className="w-full rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5 text-[#15251c]" type="text" name="name" autoComplete="name" required /></label>
           <label className="grid gap-2 font-bold text-[#123f2a]">Email<input className="w-full rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5 text-[#15251c]" type="email" name="email" autoComplete="email" required /></label>
           <label className="grid gap-2 font-bold text-[#123f2a]">Interest<select className="w-full rounded-2xl border border-[#1f6f4324] bg-[#fbfdf9] px-4 py-3.5 text-[#15251c]" name="interest" defaultValue="dealer"><option value="dealer">Dealer partnership</option><option value="product">Product inquiry</option><option value="research">Research collaboration</option></select></label>
@@ -269,7 +302,7 @@ function Home() {
         </form>
       </section>
     </>
-  )
+  );
 }
 
 function App() {
@@ -280,11 +313,9 @@ function App() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       
-      // Keep navbar visible when near the top of the page (e.g. within 50px)
       if (currentScrollY <= 50) {
         setIsVisible(true)
       } 
-      // Hide on scroll down, show on scroll up
       else if (currentScrollY > lastScrollY) {
         setIsVisible(false)
       } else {
@@ -300,14 +331,12 @@ function App() {
 
   return (
     <main className="overflow-hidden bg-[#f8faf6] text-[#15251c] [background-image:linear-gradient(180deg,rgba(217,236,244,0.46),transparent_520px)]">
-      {/* Persistent Navigation Bar */}
+      {/* Navigation */}
       <nav 
         className={`fixed left-1/2 top-3 z-10 flex min-h-14 w-[calc(100%-20px)] -translate-x-1/2 items-center justify-between gap-3 rounded-[28px] border border-white/60 bg-white/80 px-3 py-2 shadow-[0_20px_55px_rgba(16,54,35,0.12)] backdrop-blur-xl transition-all duration-300 md:top-5 md:min-h-16 md:w-[min(1180px,calc(100%-32px))] md:rounded-full md:px-4 md:py-2.5 ${
           isVisible ? 'translate-y-0 opacity-100' : '-translate-y-20 opacity-0 pointer-events-none'
         }`}
       >
-        
-        {/* Brand Logo / Home Link */}
         <Link className="group flex items-center transition hover:opacity-90" to="/" aria-label="Cropixo home">
           <img 
             src={log} 
@@ -316,42 +345,36 @@ function App() {
           />
         </Link>
 
-        {/* Navigation Items */}
         <div className="hidden items-center gap-2 text-sm text-[#40524a] lg:flex">
-          {/* Products Link -> Navigates to /products page */}
           <Link className="flex items-center gap-1.5 rounded-full bg-[#1f6f4310] px-3.5 py-1.5 font-medium text-[#1f6f43] transition hover:bg-[#1f6f4320] hover:text-[#123f2a]" to="/products">
             <Package size={15} />
             <span>Products</span>
           </Link>
 
-          {/* Sustainability Link */}
           <a className="flex items-center gap-1.5 rounded-full border border-[#2e8b5733] bg-[#f0fbf4] px-3.5 py-1.5 font-medium text-[#2e8b57] transition hover:bg-[#2e8b57] hover:text-white" href="/#sustainability">
             <Sparkles size={15} />
             <span>Sustainability</span>
             <span className="rounded-md bg-[#2e8b5722] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">Eco</span>
           </a>
 
-          {/* Research Link */}
           <a className="flex items-center gap-1.5 rounded-2xl bg-amber-50 px-3.5 py-1.5 font-medium text-amber-800 transition hover:bg-amber-100 hover:text-amber-900" href="/#research">
             <BookOpen size={15} />
             <span>Research</span>
           </a>
 
-          {/* Contact Link */}
           <a className="flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 font-semibold text-[#15251c] transition hover:bg-emerald-800 hover:text-white" href="/#contact">
             <Mail size={15} />
             <span>Contact</span>
           </a>
         </div>
 
-        {/* CTA Button */}
         <a className="flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-[#123f2a] to-[#1f6f43] px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:scale-105 hover:shadow-lg md:px-5 md:text-sm" href="/#contact">
           <span>Dealer Inquiry</span>
           <ArrowRight size={15} />
         </a>
       </nav>
 
-      {/* Page Routing */}
+      {/* Routes */}
       <div className="pt-16 md:pt-20">
         <Routes>
           <Route path="/" element={<Home />} />
